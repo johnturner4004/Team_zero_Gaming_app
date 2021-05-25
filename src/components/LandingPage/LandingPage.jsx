@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Drawer from '../Drawer/Drawer';
 import './LandingPage.css';
 
 // CUSTOM COMPONENTS
@@ -15,6 +16,7 @@ function LandingPage() {
 
   return (
     <div className="container">
+      <Drawer />
       <h2>{heading}</h2>
 
       <div className="grid">

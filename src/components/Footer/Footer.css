@@ -1,5 +1,8 @@
 footer {
-  margin-top: 80px;
+  margin-top: 0;
   padding: 20px;
   text-align: center;
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
 }
