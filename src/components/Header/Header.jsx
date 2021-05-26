@@ -15,13 +15,13 @@ function Header() {
     if (currLocation === '/login') {
       return <Link to="/registration">Register</Link>
     }
-    if (currLocation === '/registration') {
+    if (currLocation === '/registration' || currLocation === '/profile') {
       return <p>Cancel</p>
     }
-    if (user.gamertag) {
-      return <p>Profile</p>
+    if (user.username  && currLocation !=='/profile') {
+      return <Link to="/profile">Profile</Link>
     }
-    if (!user.gamertag) {
+    if (!user.username) {
       return <Link to="/login">Login</Link>
     }
     return <p>Not working</p>

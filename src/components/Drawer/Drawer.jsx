@@ -77,6 +77,7 @@ export default function Drawer() {
       <List>
         <ListItemLink to="/upcoming" primary="Upcoming Events" />
         <ListItemLink to="/add-event" primary="Add Event" />
+        <ListItemLink to="/my-events" primary="My Events" />
       </List>
       <Divider />
       {!user.username ?
