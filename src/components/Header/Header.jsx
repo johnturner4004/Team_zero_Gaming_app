@@ -12,6 +12,12 @@ function Header() {
   let link = <p>Not working</p>;
 
   function setLink() {
+    if (currLocation === '/login') {
+      return <Link to="/registration">Register</Link>
+    }
+    if (currLocation === '/registration') {
+      return <p>Cancel</p>
+    }
     if (user.gamertag) {
       return <p>Profile</p>
     }
@@ -24,7 +30,7 @@ function Header() {
   return (
     <div className="header">
       <Drawer />
-      {setLink()}
+      <div className="navLink">{setLink()}</div>
     </div>
   )
 }

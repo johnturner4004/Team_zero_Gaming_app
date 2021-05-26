@@ -1,12 +1,10 @@
 import UnderConstruction from "../UnderConstruction/UnderConstruction";
 
-function Upcoming () {
+export default function AddEvent() {
   return(
     <>
-    <h1>Upcoming events page is under construction</h1>
+    <h1>Add event page is under construction</h1>
     <UnderConstruction />
     </>
   )
 }
-
-export default Upcoming;

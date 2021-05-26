@@ -14,11 +14,11 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Upcoming from '../Upcoming/Upcoming';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
+import UserPage from '../Unused/UserPage/UserPage';
+import Profile from '../Profile/Profile';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AddEvent from '../AddEvent/AddEvent';
 
 import './App.css';
 
@@ -35,9 +35,8 @@ function App() {
         <Header />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
-
-          {/* Visiting localhost:3000/about will show the about page. */}
+          <Redirect exact from="/" to="/login" />
+          
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
@@ -45,9 +44,9 @@ function App() {
           >
             <Upcoming />
           </Route>
-          <Route exact path="">
+          {/* <Route exact path=""> */}
           
-          </Route>
+          {/* </Route> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -64,9 +63,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/profile"
           >
-            <InfoPage />
+          <Profile />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
@@ -78,10 +77,17 @@ function App() {
             // - else shows LoginPage at /login
             exact
             path="/login"
-            authRedirect="/user"
+            authRedirect="/profile"
           >
             <LoginPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/profile"
+            >
+              <Profile />
+            </ProtectedRoute>
 
           <ProtectedRoute
             // with authRedirect:
@@ -89,29 +95,23 @@ function App() {
             // - else shows RegisterPage at "/registration"
             exact
             path="/registration"
-            authRedirect="/user"
+            authRedirect="/profile"
           >
             <RegisterPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
-            exact
-            path="/home"
-            authRedirect="/user"
-          >
-            <LandingPage />
+          exact
+          path="/add-event">
+            <AddEvent />
           </ProtectedRoute>
-          
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer className="footer"/>
+        <Footer />
       </div>
     </Router>
   );

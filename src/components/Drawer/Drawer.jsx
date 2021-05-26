@@ -6,7 +6,10 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { ListItem, ListItemText } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
   list: {
@@ -17,7 +20,33 @@ const useStyles = makeStyles({
   },
 });
 
+function ListItemLink(props) {
+  const { icon, primary, to } = props;
+
+  const renderLink = React.useMemo(
+    () => React.forwardRef((itemProps, ref) => <RouterLink to={to} ref={ref} {...itemProps} />),
+    [to],
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
+
+ListItemLink.propTypes = {
+  icon: PropTypes.element,
+  primary: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+};
+
+
 export default function Drawer() {
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -25,6 +54,8 @@ export default function Drawer() {
     bottom: false,
     right: false,
   });
+
+  const user = useSelector(store => store.user)
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -44,10 +75,13 @@ export default function Drawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <Link to="upcoming">Upcoming Events</Link>
+        <ListItemLink to="/upcoming" primary="Upcoming Events" />
+        <ListItemLink to="/add-event" primary="Add Event" />
       </List>
       <Divider />
-      
+      {!user.username ?
+      <ListItemLink to="/login" primary="Login" /> :
+      <ListItemLink to="/profile" primary="Profile" /> }
     </div>
   );
 

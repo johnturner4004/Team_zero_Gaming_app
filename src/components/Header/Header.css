@@ -4,3 +4,10 @@
   display: flex;
   align-items: center;
 }
+
+.navLink {
+  width: fit-content;
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+}
