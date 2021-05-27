@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const login = (event) => {
     event.preventDefault();
@@ -25,6 +38,16 @@ function LoginForm() {
   }; // end login
 
   return (
+    <>
+    <form className={classes.root} noValidate autoComplete="on">
+      
+      <TextField
+        id="username"
+        label="Outlined secondary"
+        variant="outlined"
+        color="primary"
+      />
+      </form>
     <form className="formPanel" onSubmit={login}>
       <h2>Login</h2>
       {errors.loginMessage && (
@@ -60,6 +83,7 @@ function LoginForm() {
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
     </form>
+    </>
   );
 }
 

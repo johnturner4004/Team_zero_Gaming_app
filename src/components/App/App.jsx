@@ -13,6 +13,7 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+import Home from '../Home/Home';
 import Upcoming from '../Upcoming/Upcoming';
 import MyEvents from '../MyEvents/MyEvents';
 import Profile from '../Profile/Profile';
@@ -35,7 +36,7 @@ function App() {
         <Header />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/login" />
+          <Redirect exact from="/" to="/home" />
           
           <Route
             // shows AboutPage at all times (logged in or not)
@@ -43,6 +44,12 @@ function App() {
             path="/upcoming"
           >
             <Upcoming />
+          </Route>
+          <Route
+          exact
+          path="/home"
+          >
+            <Home />
           </Route>
           {/* <Route exact path=""> */}
           
@@ -72,9 +79,6 @@ function App() {
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LoginPage at /login
             exact
             path="/login"
             authRedirect="/profile"
@@ -90,9 +94,6 @@ function App() {
             </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows RegisterPage at "/registration"
             exact
             path="/registration"
             authRedirect="/profile"

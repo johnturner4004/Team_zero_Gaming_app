@@ -7,7 +7,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link as RouterLink} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ListItem, ListItemText } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -17,6 +17,9 @@ const useStyles = makeStyles({
   },
   fullList: {
     width: 'auto',
+  },
+  menu: {
+    color: '#fafafa'
   },
 });
 
@@ -47,6 +50,8 @@ ListItemLink.propTypes = {
 
 export default function Drawer() {
 
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -75,14 +80,21 @@ export default function Drawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+        <ListItemLink to="/home" primary="Home" />
         <ListItemLink to="/upcoming" primary="Upcoming Events" />
+        {user.username ?
+        <>
         <ListItemLink to="/add-event" primary="Add Event" />
         <ListItemLink to="/my-events" primary="My Events" />
+        </>
+        : ''}
       </List>
       <Divider />
       {!user.username ?
       <ListItemLink to="/login" primary="Login" /> :
-      <ListItemLink to="/profile" primary="Profile" /> }
+      <><ListItemLink to="/profile" primary="Profile" />
+      <ListItemText primary="Log out" 
+      onClick={() => dispatch({ type: 'LOGOUT' })}/></> }
     </div>
   );
 
@@ -91,7 +103,7 @@ export default function Drawer() {
   return (
     <div>
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+          <Button onClick={toggleDrawer(anchor, true)}><MenuIcon className={classes.menu}/></Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
