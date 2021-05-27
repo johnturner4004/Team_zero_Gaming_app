@@ -1,8 +1,14 @@
 import image from '../../images/Team zero profile high res.png'
+import LoginForm from '../LoginForm/LoginForm'
+
+import './Home.css'
 
 export default function Home() {
 
   return(
-    <img src={image} />
+    <div className="home">
+    <img id="logo" src={image} />
+    <LoginForm />
+    </div>
   )
 }

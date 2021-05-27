@@ -38,12 +38,12 @@ function Header() {
 }
 
   return (
-    <ThemeProvider theme={theme}>
     <div className="header">
       <Drawer />
+      <ThemeProvider theme={theme}>
       <div className="navLink">{setLink()}</div>
-    </div>
     </ThemeProvider>
+    </div>
   )
 }
 

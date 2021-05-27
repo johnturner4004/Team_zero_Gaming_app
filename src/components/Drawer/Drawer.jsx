@@ -93,8 +93,10 @@ export default function Drawer() {
       {!user.username ?
       <ListItemLink to="/login" primary="Login" /> :
       <><ListItemLink to="/profile" primary="Profile" />
-      <ListItemText primary="Log out" 
-      onClick={() => dispatch({ type: 'LOGOUT' })}/></> }
+      <ListItem>
+      <ListItemText  primary="Log out" 
+      onClick={() => dispatch({ type: 'LOGOUT' })}/>
+      </ListItem></> }
     </div>
   );
 
