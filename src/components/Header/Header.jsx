@@ -24,7 +24,7 @@ function Header() {
   const currLocation = location.pathname;
 
   function setLink() {
-    if (currLocation === '/login' || currLocation === '/home') {
+    if (currLocation === '/login' || (currLocation === '/home' && !user.username)) {
       return <Button color="secondary" onClick={() => history.push("/registration")}>Register</Button>
     } else
     if (currLocation === '/registration' || currLocation === '/profile') {

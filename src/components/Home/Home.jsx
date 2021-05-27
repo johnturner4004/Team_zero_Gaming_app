@@ -8,6 +8,8 @@ export default function Home() {
 
   const user = useSelector(store => store.user)
 
+  console.log(user);
+
   return(
     <div className="home">
     <img id="logo" src={image} />
