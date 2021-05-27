@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListItem, ListItemText } from '@material-ui/core';
 import PropTypes from 'prop-types';
@@ -51,6 +51,7 @@ ListItemLink.propTypes = {
 export default function Drawer() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -69,6 +70,11 @@ export default function Drawer() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const handleLogout = () => {
+    dispatch({type: 'LOGOUT'})
+    history.push('/home')
+  }
 
   const list = (anchor) => (
     <div
@@ -95,7 +101,7 @@ export default function Drawer() {
       <><ListItemLink to="/profile" primary="Profile" />
       <ListItem>
       <ListItemText  primary="Log out" 
-      onClick={() => dispatch({ type: 'LOGOUT' })}/>
+      onClick={() => handleLogout()}/>
       </ListItem></> }
     </div>
   );

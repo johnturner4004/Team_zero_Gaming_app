@@ -81,7 +81,7 @@ function App() {
           <ProtectedRoute
             exact
             path="/login"
-            authRedirect="/profile"
+            authRedirect="/home"
           >
             <LoginPage />
           </ProtectedRoute>
