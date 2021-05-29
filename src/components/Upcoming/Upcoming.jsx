@@ -1,36 +1,71 @@
 import { Card, CardContent } from "@material-ui/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UnderConstruction from "../UnderConstruction/UnderConstruction";
+import moment from "moment";
+import { makeStyles } from "@material-ui/core/styles";
+import CardActions from "@material-ui/core/CardActions";
+import Typography from "@material-ui/core/Typography";
+import Container from '@material-ui/core/Container'
 
-function Upcoming () {
+// const useStyles = makeStyles({
+//   root: {
+//     minWidth: 275,
+//   },
+//   bullet: {
+//     display: "inline-block",
+//     margin: "0 2px",
+//     transform: "scale(0.8)",
+//   },
+//   title: {
+//     fontSize: 24,
+//   },
+//   pos: {
+//     marginBottom: 12,
+//   },
+// });
+
+function Upcoming() {
   const dispatch = useDispatch();
-  
-  const upcomingList = useSelector(store => store.upcoming)
+  // const classes = useStyles();
+
+  const upcomingList = useSelector((store) => store.upcoming);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_UPCOMING' })
-  }, [])
+    dispatch({ type: "FETCH_UPCOMING" });
+  }, []);
 
-console.log(upcomingList);
+  console.log(upcomingList);
 
-  return(
-    <>
-    <h1>Upcoming events</h1>
-    {upcomingList ? 
-      upcomingList.map(event => {
-        return (
-      <Card key={event.id}>
-        <CardContent>
-        <h2>{event.description}</h2>
-        <h3>Game: {event.game}</h3>
-        <p>Date: {event.date}</p>
-        <p>Time: {event.time}</p>
-        </CardContent>
-      </Card>
-      )}):''}
-    </>
-  )
+  return (
+    <Container>
+      <Typography
+      variant="h3"
+      component="h1"e
+      >
+        Upcoming events
+        </Typography>
+      {upcomingList
+        ? upcomingList.map((event) => {
+            return (
+              <>
+              <Card m={30} key={event.id}>
+                <CardContent>
+                  <Typography
+                    className={/*classes.title*/''}
+                    gutterBottom
+                  >
+                    {event.description}
+                  </Typography>
+                  <Typography>Game: {event.game}</Typography>
+                  <Typography>Date: {moment(event.date).format("M/DD/YYYY")}</Typography>
+                  <Typography>Time: {moment(event.time, "HH:mm:ss").format("h:mm A")}</Typography>
+                </CardContent>
+              </Card><br/></>
+            );
+          })
+        : ""}
+    </Container>
+  );
 }
 
 export default Upcoming;
