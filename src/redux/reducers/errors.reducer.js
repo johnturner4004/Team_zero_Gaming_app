@@ -6,12 +6,6 @@ const loginMessage = (state = '', action) => {
   switch (action.type) {
     case 'CLEAR_LOGIN_ERROR':
       return '';
-    case 'LOGIN_INPUT_PASSWORD':
-      return 'password'; //no password
-    case 'LOGIN_INPUT_GAMERTAG':
-      return 'gamertag'; //no gamertag
-    case 'LOGIN_INPUT_ERROR':
-      return 'missing'; //no password or gamertag
     case 'LOGIN_FAILED':
       return "fail"; //incorrect user or password
     case 'LOGIN_FAILED_NO_CODE':
