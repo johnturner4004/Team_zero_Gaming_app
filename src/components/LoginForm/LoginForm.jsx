@@ -8,8 +8,6 @@ import { Container, Paper } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
-// import './LoginForm.css'
-
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
