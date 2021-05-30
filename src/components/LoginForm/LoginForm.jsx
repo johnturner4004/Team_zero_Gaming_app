@@ -36,6 +36,7 @@ function LoginForm() {
   const classes = useStyles();
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(`Username: ${username}, Password: ${password}`);
     setErrorUsername(false);
     setErrorPassword(false);
@@ -58,7 +59,7 @@ function LoginForm() {
       onClose={() => { dispatch({ type: 'CLEAR_LOGIN_ERROR' })}}
       severity="error"
       >
-        <AlertTitle>You shall not pass!!!</AlertTitle>
+        <AlertTitle>"You shall not pass!!!"</AlertTitle>
         We're sorry but either your username and password don't match or you haven't registered yet. Please register or try again.
       </Alert>
       : errors === "none" ?
@@ -66,7 +67,7 @@ function LoginForm() {
       onClose={() => { dispatch({ type: 'CLEAR_LOGIN_ERROR' })}}
       severity="error"
       >
-        <AlertTitle>Oops!!!</AlertTitle>
+        <AlertTitle>"Great Scott!"</AlertTitle>
         It looks like we're having some trouble with our server. Please refresh and try again.
       </Alert>
       :

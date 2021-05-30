@@ -21,12 +21,6 @@ const registrationMessage = (state = '', action) => {
   switch (action.type) {
     case 'CLEAR_REGISTRATION_ERROR':
       return '';
-      case 'REGISTRATION_INPUT_PASSWORD':
-      return 'registerPassword'; //no password
-    case 'REGISTRATION_INPUT_GAMERTAG':
-      return 'registerGamertag'; //no gamertag
-    case 'REGISTRATION_INPUT_ERROR':
-      return 'registerMissing';
     case 'REGISTRATION_FAILED':
       return 'registerFail';
     default:
