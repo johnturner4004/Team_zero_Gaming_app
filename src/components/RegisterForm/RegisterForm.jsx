@@ -4,161 +4,197 @@ import {useSelector} from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
-import { Paper } from '@material-ui/core';
+import { Container, FormControl, FormHelperText, Input, InputLabel, OutlinedInput, Paper, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert'
+import AlertTitle from '@material-ui/lab/AlertTitle'
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment'
+import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
+  title: {
+    textAlign: "center",
+    marginTop: 20,
+  },
+  form: {
+    marginTop: 10,
+    display: "flex",
+    justifyContent: "center",
+    width: 250,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  field: { 
+    marginTop: 10,
+    display: "block",
+  },
+  btn: { 
+    marginTop: 10,
+    marginBottom: 10,
+    display: "block",
   },
 }));
 
 function RegisterForm() {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [passwordCheck, setPasswordCheck] = useState();
-  const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [passwordMatch, setPasswordMatch] = useState();
 
-  const registerUser = (event) => {
-    event.preventDefault();
-    if (password && passwordCheck && (password === passwordCheck)) {
-      setPasswordMatch(true)
-    } else {
-      setPasswordMatch(false)
-    }
-    switch (passwordMatch, username, password) {
-      case (passwordMatch && username && password):
-        dispatch({
-          type: 'REGISTER',
-          payload: {
-            username: username,
-            password: password,
-          },
-        });
-        break;
-      case (username):
-        dispatch({ type: 'REGISTRATION_INPUT_PASSWORD' });
-        break;
-      case (password):
-        dispatch({type: 'REGISTRATION_INPUT_GAMERTAG'})
-        break;
-      default:
-        dispatch({type: 'REGISTRATION_INPUT_ERROR'})
-    }
+  const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   
-  }; // end registerUser
+  const errors = useSelector((store) => store.errors);
+
+  const handleChangeUsername = (e) => {
+    setUsername(e.target.value);
+    setUsernameError(false);
+  }
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(false);
+    if (e.target.value === passwordCheck) {
+      setPasswordMatch(true);
+    } else {
+      setPasswordMatch(false);
+    };
+  }
+
+  const handleChangePasswordCheck = (e) => {
+    setPasswordCheck(e.target.value);
+    if (e.target.value === password) {
+      setPasswordMatch(true);
+    } else {
+      setPasswordMatch(false);
+    };
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Gamertag: ${username}, Password: ${password}, Check Password: ${passwordCheck}`);
+    if (username == '' & password == '') {
+      setUsernameError(true);
+      setPasswordError(true);
+      return;
+    } else if (username == '') {
+      setUsernameError(true);
+      return;
+    } else if (password == '') {
+      setPasswordError(true);
+      return;
+    } else if (!passwordMatch) {
+      return;
+    } else {
+      dispatch({ type: 'REGISTER', payload: {username: username, password: password}});
+    };
+  };
 
   return (
     <>
-    <div className="center">
-    <Paper className="form">
-    {errors.registrationMessage === 'none' ? 
-    <>
-    <h1>We're sorry</h1>
-    <p>We appear to be experiencing some minor difficulty right now. Please refresh and try again.</p> 
-    </>:
-    <form className={classes.root} noValidate autoComplete="on" onSubmit={registerUser}>
-      {errors.registrationMessage === "registerMissing" || 
-      errors.registrationMessage === "registerGamertag" ?
-      <TextField
-          error
-          id="outlined-error"
-          label="Error"
-          value={username}
-          variant="outlined"
-          helperText="Gamertag is required"
-          onChange={(event) => setUsername(event.target.value)}
-          required
-          /> :
-          errors.registrationMessage === 'registerFail' ?
-          <>
-          <h1>Something went wrong</h1>
-          <p>That username may have already been taken.</p>
-          <TextField
-          error
-          id="outlined-error"
-          label="Error"
-          value={username}
-          variant="outlined"
-          helperText="Username may already be taken"
-          onChange={(event) => setUsername(event.target.value)}
-          required
-          /></> :
-          <TextField
-          id="username"
-          label="Gamertag"
-          variant="outlined"
-          color="primary"
-          required
-          onChange={(event) => setUsername(event.target.value)}
-          />}
-      {errors.registrationMessage === 'registerMissing' || 
-      errors.registrationMessage === 'registerPassword' ? 
-      <TextField
-      error
-      id="outlined-error password"
-      type="password"
-      label="Error"
-      variant="outlined"
-      color="primary"
-      helperText="Password is required"
-      required
-      onChange={(event) => setPassword(event.target.value)}
-      /> :
-      errors.registrationMessage === 'registerFail' ?
-      <TextField
-      error
-      id="outlined-error password"
-      type="password"
-      label="Error"
-      variant="outlined"
-      color="primary"
-      required
-      onChange={(event) => setPassword(event.target.value)}
-      /> :
-      <TextField
-        id="password"
-        type="password"
+      <Typography
+      className={classes.title}
+      variant="h3"
+      component="h1"
+      >
+        Registration
+      </Typography>
+    <Container className={classes.form}>
+      { errors.registrationMessage === 'registerFail' ?
+      <Alert 
+      severity="error"
+      onClose={() => { dispatch({ type: 'CLEAR_REGISTRATION_ERROR' })}}
+      >
+        <AlertTitle>"It's a trap"</AlertTitle>
+        We're sorry but that didn't work. That username may have already been taken.
+      </Alert>
+      :
+      <>
+    <Paper className={classes.form}>
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <TextField 
+        className={classes.field}
+        variant="outlined"
+        label="Gamertag"
+        value={username}
+        onChange={(e) => handleChangeUsername(e)}
+        fullWidth
+        required
+        error={usernameError}
+        helperText={usernameError ? "Gamertag is required" : ""}
+        />
+        <FormControl fullWidth required className={classes.field} variant="outlined">
+        <InputLabel error={passwordError}>Password</InputLabel>
+        <OutlinedInput
+        type={showPassword ? 'text' : 'password'}
         label="Password"
-        variant="outlined"
+        value={password}
+        onChange={(e) => handleChangePassword(e)}
+        error={passwordError}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        }
+
+        />
+          <FormHelperText error>{passwordError ? "Password is required" : ""}</FormHelperText>
+        </FormControl>
+        <FormControl fullWidth required className={classes.field} variant="outlined">
+          <InputLabel error={!passwordMatch}>Check Password</InputLabel>
+        <OutlinedInput 
+        type={showPassword ? 'text' : 'password'}
+        label="Check password"
+        value={passwordCheck}
+        onChange={(e) => handleChangePasswordCheck(e)}
+        error={!passwordMatch}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              >
+              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        }
+        />
+        <FormHelperText error>{!passwordMatch ? "Passwords do not match" : ""}</FormHelperText>
+        </FormControl>
+        <Button
+        className={classes.btn}
+        type="submit"
+        variant="contained"
         color="primary"
-        required
-        onChange={(event) => setPassword(event.target.value)}
-      />}
-      {passwordMatch ?
-      <TextField
-        id="password-2"
-        type="password"
-        label="Confirm password"
-        variant="outlined"
-        color="primary"
-        required
-        onChange={(event) => setPasswordCheck(event.target.value)}
-      /> :
-      <TextField
-        error
-        id="password-2"
-        type="password"
-        label="Error"
-        variant="outlined"
-        color="primary"
-        helperText="Passwords do not match"
-        required
-        onChange={(event) => setPasswordCheck(event.target.value)}
-      />}
-      {errors.registrationMessage ? 
-        <Button variant="contained" color="success" type="submit">Register</Button>
-        :
-        <Button variant="contained" type="submit">Register</Button>}
-      </form>}
+        fullWidth
+        >
+          Submit
+        </Button>
+      </form>
     </Paper>
-    </div>
     </>
+  }
+    </Container></>
   );
 }
 

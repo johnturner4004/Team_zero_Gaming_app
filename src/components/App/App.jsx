@@ -5,13 +5,13 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Home from '../Home/Home';
 import Upcoming from '../Upcoming/Upcoming';
@@ -26,11 +26,19 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
 
+  const theme = {
+    spacing: 4,
+    palette: {
+      primary: '#007bff',
+    },
+  };
+
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Header />
@@ -115,6 +123,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 
