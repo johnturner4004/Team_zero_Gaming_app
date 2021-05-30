@@ -5,17 +5,20 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-  const sqlText = `SELECT "event_id", "description", "game", "date", "time", "username", "image_url" FROM "event" AS "e"
-	JOIN "games" AS "g" ON g.game_id = e.game_id
-	JOIN "user" AS "u" ON u.id = e.created_by;`;
-  pool.query(sqlText)
+router.get('/:id', (req, res) => {
+  const sqlText = `SELECT e."event_id", u."username" FROM "event" AS "e"
+	JOIN "participant" AS "p" ON p.event_id = e.event_id
+	JOIN "user" AS "u" ON p.user_id = u.id
+  WHERE e.event_id = $1;`;
+  const id = req.params.id
+  pool.query(sqlText, [id])
   .then(results => {
     res.send(results.rows)
   })
   .catch(error => {
-    console.log('Unable to get events', error);
+    console.log(`Error getting participant list: ${error}`);
   })
+
   // GET route code here
 });
 
