@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
     res.send(results.rows)
   })
   .catch(error => {
-    console.log(`Error getting participant list: ${error}`);
+    console.log(`Participant query failed: ${error}`);
   })
 
   // GET route code here

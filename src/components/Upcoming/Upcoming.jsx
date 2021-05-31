@@ -1,14 +1,13 @@
-import { Card, CardContent, CardMedia, FormControl, FormControlLabel, Switch } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { Card, CardContent  } from "@material-ui/core";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
-import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { flexbox } from "@material-ui/system";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import Participant from "../Participant/Participant";
+import green from "@material-ui/core/colors/green"
 
 const useStyles = makeStyles({
   frame:{
@@ -24,39 +23,44 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "spaceBetween",
     alignItems: "center",
-  }
+  },
+  confirm: {
+    backgroundColor: "lightGreen",
+  },
 });
 
 function Upcoming() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const upcomingList = useSelector((store) => store.upcoming);
-
-  const [playing, setPlaying] = useState(false);
-
-  const handleChange = (e) => {
-    setPlaying(e.target.checked);
-    console.log(e.target.checked);
-  }
-
+  const upcomingList = useSelector(store => store.upcoming);
+  const attending = useSelector(store => store.attending);
+  const user = useSelector(store => store.user);
 
   useEffect(() => {
     dispatch({ type: "FETCH_UPCOMING" });
-  }, []);
+    console.log('user id', user.id);
+    dispatch({ type: 'FETCH_ATTENDING', payload: user.id})
+  }, [user]);
 
-  console.log(upcomingList);
+  const getClass = (id) => {
+    for (event of attending) {
+      if (event.event_id === id) {
+        return classes.confirm
+      }
+    }
+  }
 
   return (
     <Container>
-      <Typography variant="h3" component="h1">
+      <Typography variant="h3" component="h1" gutterBottom>
         Upcoming events
       </Typography>
       {upcomingList
         ? upcomingList.map((event) => {
             return (
               <>
-                <Card m={30} key={event.event_id}>
+                <Card className={getClass(event.event_id)} m={30} key={event.event_id}>
                   <CardContent>
                     <Typography
                       variant="h5"
