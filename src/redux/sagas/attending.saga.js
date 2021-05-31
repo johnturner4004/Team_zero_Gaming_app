@@ -23,9 +23,19 @@ function* addAttending(action) {
   }
 }
 
+function* deleteAttending(action) {
+  try{
+    yield axios.delete(`api/attending/${action.payload.pid}`)
+    yield put({ type: 'FETCH_ATTENDING', payload: action.payload.user })
+  } catch (error) {
+    console.log('Unable to delete from attending list', error);
+  }
+}
+
 function* attendingSaga() {
   yield takeLatest('FETCH_ATTENDING', fetchAttending),
-  yield takeLatest('ADD_ATTENDING', addAttending)
+  yield takeLatest('ADD_ATTENDING', addAttending),
+  yield takeLatest('DELETE_ATTENDING', deleteAttending)
 }
 
 export default attendingSaga;

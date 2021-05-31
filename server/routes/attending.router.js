@@ -40,4 +40,17 @@ router.post('/', (req, res) => {
   // POST route code here
 });
 
+router.delete('/:id', (req, res) =>{
+  const sqlText = `DELETE FROM participant WHERE pid = $1`;
+  const pid = req.params.id;
+
+  pool.query(sqlText, [pid])
+  .then(results => {
+    res.sendStatus(201);
+  })
+  .catch(error => {
+    console.log('Error deleting participant', error);
+  });
+});
+
 module.exports = router;

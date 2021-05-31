@@ -6,6 +6,7 @@ export default function ToggleSwitch(props) {
   const dispatch = useDispatch();
 
   const [playing, setPlaying] = useState(false);
+  const [pid, setPid] = useState('');//pid is id from participant table
 
   const attending = useSelector((state) => state.attending);
   const user = useSelector((state) => state.user);
@@ -14,6 +15,7 @@ export default function ToggleSwitch(props) {
     for (event of attending) {
       if (event.event_id === props.prop.event_id) {
         setPlaying(true);
+        setPid(event.pid);
       }
     }
   };
@@ -27,6 +29,9 @@ export default function ToggleSwitch(props) {
     if (playing === false) {
       console.log(`payload ${props.prop.event_id}, ${user.id}`);
       dispatch({ type: 'ADD_ATTENDING', payload: {event_id: props.prop.event_id, user_id: user.id}})
+    } else {
+      console.log(`payload pid: ${pid}, user: ${user.id}`);
+      dispatch({ type: 'DELETE_ATTENDING', payload: {pid: pid, user: user.id}})
     }
   };
 
