@@ -1,9 +1,11 @@
 import { put, takeLatest } from "@redux-saga/core/effects";
 import axios from "axios";
 
-function* fetchParticipant() {
+function* fetchParticipant(action) {
   try{
-    const response = yield axios.get(`/api/participant/${action.payload.id}`)
+    console.log(action.payload);
+    
+    const response = yield axios.get(`/api/participant/${action.payload}`)
     yield put({ type: 'SET_PARTICIPANT', payload: response.data})
   } catch (error) {
     console.log(`Unable to get participant list: ${error}`);

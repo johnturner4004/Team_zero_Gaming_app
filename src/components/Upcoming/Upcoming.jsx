@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { flexbox } from "@material-ui/system";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import Participant from "../Participant/Participant";
 
 const useStyles = makeStyles({
   frame:{
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     justifyContent: "spaceBetween",
+    alignItems: "center",
   }
 });
 
@@ -84,6 +86,7 @@ function Upcoming() {
                     </Container>
                     <Container className={classes.row}>
                       <ToggleSwitch prop={event} />
+                      <Participant prop={event.event_id} />
                     </Container>
                   </CardContent>
                 </Card>
