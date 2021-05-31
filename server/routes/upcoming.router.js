@@ -6,8 +6,8 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-  const sqlText = `SELECT "description", "game", "date", "time", "username" FROM "event" AS "e"
-	JOIN "games" AS "g" ON g.id = e.game_id
+  const sqlText = `SELECT "event_id", "description", "game", "date", "time", "username", "image_url" FROM "event" AS "e"
+	JOIN "games" AS "g" ON g.game_id = e.game_id
 	JOIN "user" AS "u" ON u.id = e.created_by;`;
   pool.query(sqlText)
   .then(results => {
