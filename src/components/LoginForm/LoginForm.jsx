@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
     justifyContent: "center",
-    width: 250,
+    width: 300,
   },
   field: { 
     marginTop: 10,
