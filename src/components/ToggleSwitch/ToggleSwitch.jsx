@@ -34,9 +34,7 @@ export default function ToggleSwitch(props) {
       dispatch({ type: 'DELETE_ATTENDING', payload: {pid: pid, user: user.id}})
     }
   };
-
-  console.log(props);
-  console.log(props.prop.event_id);
+  
   return (
     <FormControlLabel
       control={

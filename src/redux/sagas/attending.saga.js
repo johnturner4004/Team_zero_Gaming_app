@@ -7,8 +7,6 @@ function* fetchAttending(action) {
     const id = action.payload;
     const response = yield axios.get(`/api/attending/${id}`)
     yield put({ type: 'SET_ATTENDING', payload: response.data})
-    console.log('fetch attending response', response.data);
-    
   } catch (error) {
     console.log(`Unable to get attending list: ${error}`);
   }

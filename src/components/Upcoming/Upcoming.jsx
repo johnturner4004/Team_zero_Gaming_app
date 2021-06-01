@@ -39,7 +39,6 @@ function Upcoming() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_UPCOMING" });
-    console.log('user id', user.id);
     dispatch({ type: 'FETCH_ATTENDING', payload: user.id})
   }, [user]);
 
