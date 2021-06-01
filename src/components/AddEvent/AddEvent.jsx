@@ -57,10 +57,10 @@ export default function AddEvent() {
   const [description, setDescription] = useState();
   const [game, setGame] = useState('');
   const [gameError, setGameError] = useState(false);
-  const [date, setDate] = useState(new Date('01/01/0001'));
+  const [date, setDate] = useState(new Date('01/01/2021'));
   const [checkDate, setCheckDate] = useState(new Date('01/01/0001'));
   const [dateError, setDateError] = useState(false);
-  const [time, setTime] = useState(new Date('01/01/0001'));
+  const [time, setTime] = useState(new Date('01/01/2021'));
   const [checkTime, setCheckTime] = useState(new Date('01/01/0001'));
   const [timeError, setTimeError] = useState(false);
   
