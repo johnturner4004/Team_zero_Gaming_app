@@ -12,11 +12,21 @@ function* fetchUpcoming() {
 
 function* addUpcoming(action) {
   try {
-    yield axios.post('/api/upcoming', action.payload)
-    yield put({ type: 'FETCH_UPCOMING'})
+    const response = yield axios.post('/api/upcoming', action.payload)
+    console.log(response.data, action.payload.created_by);
+    const eid = response.data[0].event_id;
+    const uid = action.payload.created_by;
+    console.log('resopnse', response)
+    console.log('response');
+    
+    console.log('eid', eid, 'payload', payload);
+    
+    const payload = {event_id: eid, user_id: uid}
+    yield put({ type: 'ADD_ATTENDING', payload: payload})
+    
   } catch (error) {
     console.log('Unable to add new event', error);
-  } 
+  }
 }
 
 function* upcomingSaga() {

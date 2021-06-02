@@ -66,6 +66,8 @@ export default function AddEvent() {
   
   const gameList = useSelector((store) => store.game);
   const user = useSelector((store) => store.user);
+  const addEvent = useSelector((store) => store.addEvent);
+
 
   useEffect(() => {
     dispatch({ type: "FETCH_GAME" });
@@ -124,7 +126,8 @@ export default function AddEvent() {
       }
 
       dispatch({ type: 'ADD_UPCOMING', payload: newEvent});
-      history.push('/upcoming')
+      console.log(addEvent);
+      // history.push('/upcoming')
     }
   }
 

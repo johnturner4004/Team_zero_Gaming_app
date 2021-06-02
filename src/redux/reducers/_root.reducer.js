@@ -6,6 +6,7 @@ import participant from './participant.reducer';
 import attending from './attending.reducer';
 import game from './game.reducer';
 import myEvents from './myEvents.reducer'
+import addEvent from './addEvent.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   participant, //list of all users playing in a single event
   attending, //list of events current user is playing in
   game, //list of games
-  myEvents // list of events for current user
+  myEvents, // list of events for current user
+  addEvent, //  event_id of newly added event
 });
 
 export default rootReducer;

@@ -7,7 +7,7 @@ export default function ToggleSwitch(props) {
 
   const [playing, setPlaying] = useState(false);
   const [pid, setPid] = useState('');//pid is id from participant table
-  const [owner, setOwner] = useState(false);
+  const [owner, setOwner] = useState(true);
 
   const attending = useSelector((state) => state.attending);
   const user = useSelector((state) => state.user);
@@ -16,23 +16,26 @@ export default function ToggleSwitch(props) {
     for (event of attending) {
       if (event.event_id === props.prop.event_id) {
         setPlaying(true);
-        setPid(event.pid);
       }
     }
   };
-console.log(props, user)
+  
   const checkOwner = () => {
     if (props.prop.username === user.username && user.username) {
       setOwner(true);
-      if (playing === false) {
-        dispatch({ type: 'ADD_ATTENDING', payload: {event_id: props.prop.event_id, user_id: user.id}})
-      } ;
     };
   };
 
+  // const checkOwnerAttending = (isPlaying, isOwner) => {
+  //   console.log('************************************************************************************************************************************************isPlaying', isPlaying, 'isOwner', isOwner);
+  //   if (isPlaying === false && isOwner === true) {
+  //     dispatch({ type: 'ADD_ATTENDING', payload: {event_id: props.prop.event_id, user_id: user.id}})
+  //   } ;
+  // }
+
   useEffect(() => {
-    checkAttending();
-    checkOwner();
+    checkOwner()
+    checkAttending()
   }, [attending, user]);
 
   const handleChange = (e) => {
