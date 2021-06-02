@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   confirm: {
-    backgroundColor: "lightGreen",
+    backgroundColor: green['A400'],
   },
 });
 

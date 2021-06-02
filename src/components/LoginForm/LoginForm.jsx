@@ -13,12 +13,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     width: 300,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-  field: { 
+  field: {
     marginTop: 10,
     display: "block",
   },
-  btn: { 
+  btn: {
     marginTop: 10,
     marginBottom: 10,
     display: "block",
@@ -106,6 +108,7 @@ function LoginForm() {
         className={classes.btn}
         type="submit"
         variant="contained"
+        color="primary"
         fullWidth
         >
           Submit

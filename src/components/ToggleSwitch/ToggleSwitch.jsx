@@ -7,6 +7,7 @@ export default function ToggleSwitch(props) {
 
   const [playing, setPlaying] = useState(false);
   const [pid, setPid] = useState('');//pid is id from participant table
+  const [owner, setOwner] = useState(false);
 
   const attending = useSelector((state) => state.attending);
   const user = useSelector((state) => state.user);
@@ -19,22 +20,30 @@ export default function ToggleSwitch(props) {
       }
     }
   };
+console.log(props, user)
+  const checkOwner = () => {
+    if (props.prop.username === user.username && user.username) {
+      setOwner(true);
+      if (playing === false) {
+        dispatch({ type: 'ADD_ATTENDING', payload: {event_id: props.prop.event_id, user_id: user.id}})
+      } ;
+    };
+  };
 
   useEffect(() => {
     checkAttending();
+    checkOwner();
   }, [attending, user]);
 
   const handleChange = (e) => {
     setPlaying(e.target.checked);
     if (playing === false) {
-      console.log(`payload ${props.prop.event_id}, ${user.id}`);
       dispatch({ type: 'ADD_ATTENDING', payload: {event_id: props.prop.event_id, user_id: user.id}})
     } else {
-      console.log(`payload pid: ${pid}, user: ${user.id}`);
       dispatch({ type: 'DELETE_ATTENDING', payload: {pid: pid, user: user.id}})
     }
   };
-  
+
   return (
     <FormControlLabel
       control={
@@ -43,6 +52,7 @@ export default function ToggleSwitch(props) {
           checked={playing}
           onChange={(e) => handleChange(e)}
           color="primary"
+          disabled={owner}
         />
       }
       label="Playing with us?"

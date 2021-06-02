@@ -16,7 +16,7 @@ function* addUpcoming(action) {
     yield put({ type: 'FETCH_UPCOMING'})
   } catch (error) {
     console.log('Unable to add new event', error);
-  }
+  } 
 }
 
 function* upcomingSaga() {

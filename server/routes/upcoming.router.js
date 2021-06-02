@@ -24,11 +24,14 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   const sqlText = `INSERT INTO event (description, game_id, date, time, created_by)
-  VALUES($1, $2, $3, $4, $5)`
+  VALUES($1, $2, $3, $4, $5)
+  RETURNING "event_id"`
   const event = req.body;
   pool.query(sqlText, [event.description, event.game_id, event.date, event.time, event.created_by])
-  .then(results => {
-    res.sendStatus(201)
+  .then(result => {
+    
+    res.send(result.rows)
+    
   })
   .catch(error => {
     console.log('Error adding event', error);
