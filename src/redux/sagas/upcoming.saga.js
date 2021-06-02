@@ -10,8 +10,18 @@ function* fetchUpcoming() {
   }
 }
 
+function* addUpcoming(action) {
+  try {
+    yield axios.post('/api/upcoming', action.payload)
+    yield put({ type: 'FETCH_UPCOMING'})
+  } catch (error) {
+    console.log('Unable to add new event', error);
+  } 
+}
+
 function* upcomingSaga() {
   yield takeLatest('FETCH_UPCOMING', fetchUpcoming);
+  yield takeLatest('ADD_UPCOMING', addUpcoming);
 }
 
 export default upcomingSaga;
