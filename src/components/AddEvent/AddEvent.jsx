@@ -54,7 +54,7 @@ export default function AddEvent() {
   const classes = useStyles();
   const history = useHistory();
 
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState('');
   const [game, setGame] = useState('');
   const [gameError, setGameError] = useState(false);
   const [date, setDate] = useState(new Date('01/01/2021'));
@@ -74,6 +74,10 @@ export default function AddEvent() {
     setCheckDate(date);
     setCheckTime(time)
   }, []);
+
+  const handleDescription = (event) => {
+    setDescription(event.target.value)
+  }
 
   const handleChange = (event) => {
     setGameError(false);
@@ -126,7 +130,6 @@ export default function AddEvent() {
       }
 
       dispatch({ type: 'ADD_UPCOMING', payload: newEvent});
-      console.log(addEvent);
       // history.push('/upcoming')
     }
   }
@@ -144,7 +147,7 @@ export default function AddEvent() {
               variant="outlined"
               label="Event name"
               value={description}
-              onChange={setDescription}
+              onChange={(e) => handleDescription(e)}
               fullWidth
               helperText="If left blank, default is playing <game>"
             />
