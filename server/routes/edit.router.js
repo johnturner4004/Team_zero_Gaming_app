@@ -28,6 +28,21 @@ router.post('/', (req, res) => {
   // POST route code here
 });
 
+router.put('/:id', (req,res) => {
+  const sqlText = `UPDATE "event" SET description = $1, game_id = $2, date = $3, time = $4, created_by = $5 
+                    WHERE event_id = $6`
+  const id = req.params.id;
+  const info = req.body;
+  pool.query(sqlText, [info.description, info.game_id, info.date, info.time, info.created_by, id])
+  .then(result => {
+    res.sendStatus(201)
+  })
+  .catch(error => {
+    console.log('Unable to edit data', error);
+    
+  })
+})
+
 router.delete('/:id', (req,res) => {
   const sqlText = `DELETE FROM "event" WHERE event_id = $1;`;
   const id = req.params.id;

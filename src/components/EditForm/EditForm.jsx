@@ -113,13 +113,14 @@ export default function EditForm(props) {
       }
 
       const newDetails = {
+        event_id: originalDetails.event_id,
         description: outputDescription,
         game_id: game.game_id,
         date: outputDate,
         time: outputTime,
         created_by: user.id
       }
-
+      dispatch({ type: 'EDIT', payload: newDetails})
       history.push('/my-events');
     }
   }

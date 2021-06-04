@@ -52,7 +52,6 @@ export default function myEvents() {
       </Typography>
       {myEvents
         ? myEvents.map((event) => {
-            console.log(event);
             return (
               <>
                 <Card m={30} key={event.event_id}>

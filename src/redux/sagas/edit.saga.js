@@ -11,6 +11,17 @@ function* fetchEdit(action) {
   }
 }
 
+function* editItem(action) {
+  try{
+    const id = action.payload.created_by;
+    yield axios.put(`/api/edit/${action.payload.event_id}`, action.payload);
+    yield put({ type: 'FETCH_MY_EVENTS', payload: id });
+  } catch (error) {
+    console.log('Unable to edit', error);
+    
+  }
+}
+
 function* deleteItem(action) {
   try {
     const id = action.payload.id;
@@ -26,6 +37,7 @@ function* deleteItem(action) {
 function* editSaga() {
   yield takeLatest('FETCH_EDIT', fetchEdit);
   yield takeLatest('DELETE', deleteItem);
+  yield takeLatest('EDIT', editItem);
 }
 
 export default editSaga;
