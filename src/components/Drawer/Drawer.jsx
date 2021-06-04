@@ -94,11 +94,13 @@ export default function Drawer() {
         <ListItemLink to="/my-events" primary="My Events" />
         </>
         : ''}
+        <ListItemLink to="/about" primary="About" />
       </List>
       <Divider />
       {!user.username ?
       <ListItemLink to="/login" primary="Login" /> :
-      <><ListItemLink to="/profile" primary="Profile" />
+      <>
+      {/* <ListItemLink to="/profile" primary="Profile" /> */}
       <ListItem>
       <ListItemText  primary="Log out" 
       onClick={() => handleLogout()}/>
