@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddEvent from '../AddEvent/AddEvent';
 import Edit from '../Edit/Edit'
+import About from '../About/About'
 
 import './App.css';
 
@@ -59,6 +60,12 @@ function App() {
           path="/home"
           >
             <Home />
+          </Route>
+          <Route
+          exact
+          path="/about"
+          >
+            <About />
           </Route>
           {/* <Route exact path=""> */}
           

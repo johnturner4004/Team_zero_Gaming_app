@@ -1,8 +1,10 @@
 footer {
   margin-top: 0;
   padding: 20px;
+  height: 10vh;
+  background-color: #AD00FF;
   text-align: center;
   bottom: 0;
-  position: absolute;
+  position: sticky;
   width: 100vw;
 }
