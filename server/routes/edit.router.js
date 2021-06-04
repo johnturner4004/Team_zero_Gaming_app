@@ -28,4 +28,16 @@ router.post('/', (req, res) => {
   // POST route code here
 });
 
+router.delete('/:id', (req,res) => {
+  const sqlText = `DELETE FROM "event" WHERE event_id = $1;`;
+  const id = req.params.id;
+  pool.query(sqlText, [id])
+  .then(result => {
+    res.sendStatus(201)
+  })
+  .catch(error => {
+    console.log('Unable to delete from database', error);
+  })
+})
+
 module.exports = router;

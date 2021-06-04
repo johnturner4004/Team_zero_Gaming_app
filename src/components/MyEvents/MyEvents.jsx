@@ -33,12 +33,16 @@ export default function myEvents() {
   const myEvents = useSelector(store => store.myEvents);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_MY_EVENTS', payload: user.id});
+    dispatch({ type: 'FETCH_MY_EVENTS', payload: user.id });
   }, [user]);
 
   const handleEditButton = (id) => {
     history.push(`/edit/${id}`);
     dispatch({ type: 'CLEAR_EDIT' });
+  }
+
+  const handleDeleteButton = (id) => { 
+    dispatch({ type: 'DELETE', payload: { id: id, user_id: user.id } });
   }
 
   return (
@@ -81,7 +85,7 @@ export default function myEvents() {
                     </Container>
                     <Container className={classes.row}>
                       <Button color="primary" onClick={() => handleEditButton(event.event_id)}>Edit</Button>
-                      Delete here
+                      <Button color="primary" onClick={() => handleDeleteButton(event.event_id)}>Delete</Button>
                     </Container>
                   </CardContent>
                 </Card>
