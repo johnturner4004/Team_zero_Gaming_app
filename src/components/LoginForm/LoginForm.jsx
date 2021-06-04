@@ -39,7 +39,6 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Username: ${username}, Password: ${password}`);
     setErrorUsername(false);
     setErrorPassword(false);
     if (username == '' && password == ''){

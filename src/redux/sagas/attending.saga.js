@@ -3,7 +3,6 @@ import axios from "axios";
 
 function* fetchAttending(action) {
   try{
-    console.log('fetch attending payload', action.payload);
     const id = action.payload;
     const response = yield axios.get(`/api/attending/${id}`)
     yield put({ type: 'SET_ATTENDING', payload: response.data})

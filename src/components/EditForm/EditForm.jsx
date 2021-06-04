@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment'
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 const useStyles = makeStyles({
   title: {
@@ -49,70 +49,61 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddEvent() {
+export default function EditForm(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
+  const originalDetails = props.props[0];
 
   const [description, setDescription] = useState('');
-  const [game, setGame] = useState('');
-  const [gameError, setGameError] = useState(false);
+  const [game, setGame] = useState('')//{game_id: originalDetails.game_id, game: originalDetails.game, image_url: originalDetails.image_url});
   const [date, setDate] = useState(new Date('01/01/2021'));
-  const [checkDate, setCheckDate] = useState(new Date('01/01/0001'));
-  const [dateError, setDateError] = useState(false);
   const [time, setTime] = useState(new Date('01/01/2021'));
-  const [checkTime, setCheckTime] = useState(new Date('01/01/0001'));
-  const [timeError, setTimeError] = useState(false);
   
   const gameList = useSelector((store) => store.game);
   const user = useSelector((store) => store.user);
-  const addEvent = useSelector((store) => store.addEvent);
-
 
   useEffect(() => {
-    dispatch({ type: "FETCH_GAME" });
-    setCheckDate(date);
-    setCheckTime(time)
-  }, []);
+    setEdit();
+  }, [gameList]);
+  const setEdit = () => {
+    setDescription(originalDetails.description);
+    // let originalGame = ({ game_id: originalDetails.game_id, game: originalDetails.game, image_url: originalDetails.image_url})
+    // setGame(originalGame)
+    for (let thisGame of gameList) {
+      if (thisGame.game_id === originalDetails.game_id) {
+        setGame(thisGame);
+      }
+    }
+    setDate(originalDetails.date);
+    setTime(moment(originalDetails.time, 'HH:mm:ss'));
+    console.log(originalDetails);
+  }
 
   const handleDescription = (event) => {
     setDescription(event.target.value)
   }
-
+  
   const handleChange = (event) => {
-    setGameError(false);
+    console.log('event', event);
     setGame(event.target.value);
   };
-
+  
   const handleDate = (event) => {
-    setDateError(false) 
     setDate(event);
   }
 
   const handleTime = (event) => {
-    setTimeError(false)
     setTime(event)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setGameError(false);
-    setDateError(false);
-    setTimeError(false);
-    if (game === '') {
-      setGameError(true);
-    }
-    if (date === checkDate) {
-      setDateError(true);
-    }
-    if (time === checkTime) {
-      setTimeError(true);
-    }
     
     const outputDate = moment(date).format('yyyy-MM-DD');
     const outputTime = moment(time).format('HH:mm');
     
-    if (game !== '' && date !== checkDate && time !== checkTime) {
+    if (game !== '' && date !== '' && time !== '') {
       let outputDescription;
 
       if ((!description || description === undefined || description === '') && game) {
@@ -121,25 +112,20 @@ export default function AddEvent() {
         outputDescription = description;
       }
 
-      const newEvent = {
+      const newDetails = {
+        event_id: originalDetails.event_id,
         description: outputDescription,
         game_id: game.game_id,
         date: outputDate,
         time: outputTime,
         created_by: user.id
       }
-
-      dispatch({ type: 'ADD_UPCOMING', payload: newEvent});
-      history.push('/upcoming')
+      dispatch({ type: 'EDIT', payload: newDetails})
+      history.push('/my-events');
     }
   }
-
   return (
-    <>
-      <Typography className={classes.title} variant="h3" component="h1">
-        Add event
-      </Typography>
-      <Container className={classes.form}>
+    <Container className={classes.form}>
         <Paper className={classes.form}>
           <form noValidate autoComplete="off">
             <TextField
@@ -160,8 +146,6 @@ export default function AddEvent() {
               select
               fullWidth
               required
-              error={gameError}
-              helperText={gameError ? "Game is required" : ''}
             >
               {gameList
                 ? gameList.map((thisGame) => {
@@ -195,8 +179,6 @@ export default function AddEvent() {
                 onChange={(e) => handleDate(e)}
                 fullWidth
                 required
-                error={dateError}
-                helperText={dateError ? "Date is required" : ''}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
                 }}
@@ -211,8 +193,6 @@ export default function AddEvent() {
                 onChange={(e) => handleTime(e)}
                 fullWidth
                 required
-                error={timeError}
-                helperText={timeError ? "Time is required" : ''}
                 KeyboardButtonProps={{
                   "aria-label": "change time",
                 }}
@@ -231,6 +211,4 @@ export default function AddEvent() {
           </form>
         </Paper>
       </Container>
-    </>
-  );
-}
+)};

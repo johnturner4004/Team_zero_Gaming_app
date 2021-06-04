@@ -13,6 +13,8 @@ const upcomingRouter = require('./routes/upcoming.router');
 const participantRouter = require('./routes/participant.router');
 const attendingRouter = require('./routes/attending.router');
 const gameRouter = require('./routes/game.router');
+const myEventsRouter = require('./routes/myEvents.router');
+const editRouter = require('./routes/edit.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +33,8 @@ app.use('/api/upcoming', upcomingRouter);
 app.use('/api/participant', participantRouter);
 app.use('/api/attending', attendingRouter);
 app.use('/api/game', gameRouter);
+app.use('/api/my-events', myEventsRouter);
+app.use('/api/edit/', editRouter);
 
 // Serve static files
 app.use(express.static('build'));
