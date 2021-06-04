@@ -20,6 +20,7 @@ import Profile from '../Profile/Profile';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddEvent from '../AddEvent/AddEvent';
+import Edit from '../Edit/Edit'
 
 import './App.css';
 
@@ -113,6 +114,11 @@ function App() {
           exact
           path="/add-event">
             <AddEvent />
+          </ProtectedRoute>
+          
+          <ProtectedRoute
+          path="/edit/:id">
+            <Edit />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

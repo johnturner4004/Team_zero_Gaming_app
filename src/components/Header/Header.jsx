@@ -27,7 +27,7 @@ function Header() {
     if (currLocation === '/login' || (currLocation === '/home' && !user.username)) {
       return <Button color="secondary" onClick={() => history.push("/registration")}>Register</Button>
     } else
-    if (currLocation === '/registration' || currLocation === '/profile' || currLocation === '/add-event') {
+    if (currLocation === '/registration' || currLocation === '/profile' || currLocation === '/add-event' || '/edit') {
       return <Button color="secondary" onClick={() => history.goBack()}>Cancel</Button>
     } else
     if (!user.username) {

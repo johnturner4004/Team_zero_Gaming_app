@@ -88,7 +88,7 @@ function Upcoming() {
                       </Container>
                     </Container>
                     <Container className={classes.row}>
-                      <ToggleSwitch prop={event} />
+                      <ToggleSwitch key={event.event_id} prop={event} />
                       <Participant prop={event.event_id} />
                     </Container>
                   </CardContent>

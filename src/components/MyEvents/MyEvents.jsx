@@ -1,10 +1,11 @@
-import { Card, CardContent  } from "@material-ui/core";
+import { Button, Card, CardContent  } from "@material-ui/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles({
   frame:{
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 export default function myEvents() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useHistory();
 
   const user = useSelector(store => store.user);
   const myEvents = useSelector(store => store.myEvents);
@@ -34,6 +36,11 @@ export default function myEvents() {
     dispatch({ type: 'FETCH_MY_EVENTS', payload: user.id});
   }, [user]);
 
+  const handleEditButton = (id) => {
+    history.push(`/edit/${id}`);
+    dispatch({ type: 'CLEAR_EDIT' });
+  }
+
   return (
     <Container>
       <Typography variant="h3" component="h1" gutterBottom>
@@ -41,6 +48,7 @@ export default function myEvents() {
       </Typography>
       {myEvents
         ? myEvents.map((event) => {
+            console.log(event);
             return (
               <>
                 <Card m={30} key={event.event_id}>
@@ -72,7 +80,8 @@ export default function myEvents() {
                       </Container>
                     </Container>
                     <Container className={classes.row}>
-                      Edit and Delete here
+                      <Button color="primary" onClick={() => handleEditButton(event.event_id)}>Edit</Button>
+                      Delete here
                     </Container>
                   </CardContent>
                 </Card>
