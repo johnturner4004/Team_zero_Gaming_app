@@ -6,3 +6,5 @@ const addEvent = (state = '', action) => {
       return state;
   }
 }
+
+export default addEvent;
