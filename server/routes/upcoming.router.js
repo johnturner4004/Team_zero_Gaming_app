@@ -8,7 +8,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const sqlText = `SELECT "event_id", "description", "game", "date", "time", "username", "image_url" FROM "event" AS "e"
 	JOIN "games" AS "g" ON g.game_id = e.game_id
-	JOIN "user" AS "u" ON u.id = e.created_by;`;
+	JOIN "user" AS "u" ON u.id = e.created_by
+	ORDER BY "date" ASC,
+		"time" ASC;`;
   pool.query(sqlText)
   .then(results => {
     res.send(results.rows)

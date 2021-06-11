@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
   listCard: {
     width: "80%",
-  }
+    padding: "5%",
+  },
 }))
 
 export default function Participant(props) {
@@ -49,7 +50,7 @@ export default function Participant(props) {
               </Typography>
           {participant ? participant.map(user => {
           return(
-              <div className={classes.demo}>
+              <div>
                 <List>
                     <ListItem>
                       <ListItemText

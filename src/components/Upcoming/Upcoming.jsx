@@ -10,6 +10,9 @@ import Participant from "../Participant/Participant";
 import green from "@material-ui/core/colors/green"
 
 const useStyles = makeStyles({
+  title: {
+    paddingTop: "5vh",
+  },
   frame:{
     width: 100,
     height: 100,
@@ -52,7 +55,7 @@ function Upcoming() {
 
   return (
     <Container>
-      <Typography variant="h3" component="h1" gutterBottom>
+      <Typography className={classes.title} variant="h4" component="h1" gutterBottom>
         Upcoming events
       </Typography>
       {upcomingList

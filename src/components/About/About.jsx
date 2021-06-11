@@ -1,13 +1,20 @@
-import { Container, Grid, List, ListItemText, Paper, Typography } from "@material-ui/core";
+import { Container, Grid, List, ListItemText, makeStyles, Paper, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  padding: {
+    padding: "5%"
+  }
+})
 
 export default function About() {
+  const classes = useStyles();
   return(
-    <Container>
-    <Typography variant="h3" component="h1">
+    <Container >
+    <Typography variant="h4" component="h1" className={classes.padding}>
       About
     </Typography>
-    <Paper>
-    <Typography variant="h4">
+    <Paper className={classes.padding}>
+    <Typography variant="h5" component="h2">
       Technologies used:
     </Typography>
     <Grid container>
