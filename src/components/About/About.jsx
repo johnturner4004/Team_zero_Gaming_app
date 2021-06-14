@@ -9,14 +9,20 @@ const useStyles = makeStyles({
 export default function About() {
   const classes = useStyles();
   return(
+    // Page title
     <Container >
     <Typography variant="h4" component="h1" className={classes.padding}>
       About
     </Typography>
+
+    {/* Element containing the page contents */}
     <Paper className={classes.padding}>
+    {/* Section title */}
     <Typography variant="h5" component="h2">
       Technologies used:
     </Typography>
+
+    {/* Table containing a list of the technologies used to make this app */}
     <Grid container>
     <Grid item xs="6">
     <List>
@@ -28,6 +34,7 @@ export default function About() {
       
     </List>
     </Grid>
+    {/* Second column of list */}
     <Grid item xs="6">
     <List>
       <ListItemText>Axios</ListItemText>
@@ -35,7 +42,6 @@ export default function About() {
       <ListItemText>Passport.js</ListItemText>
       <ListItemText>Node.js</ListItemText>
       <ListItemText>PostgreSQL</ListItemText>
-      
     </List>
     </Grid>
     </Grid>
