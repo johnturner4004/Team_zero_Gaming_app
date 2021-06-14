@@ -1,8 +1,11 @@
 {
-  "name": "prime-solo-project",
-  "version": "0.1.0",
+  "name": "Team-zero-Gaming",
+  "version": "1.0.0",
   "private": true,
   "proxy": "http://localhost:5000",
+  "engines": {
+    "node": "16.3.0"
+  },
   "dependencies": {
     "@date-io/date-fns": "^2.10.11",
     "@fontsource/roboto": "^4.3.0",
