@@ -49,6 +49,6 @@ Create a new database called `team_zero_gaming_app` then copy and paste the code
 - For events created by a user, that user will be automatically marked as playing and the switch will be disabled. If they no longer intend on playing they will need to delete the event.
 - To see a list of users who are playing in an event, go to the My Events page and click on the 'Who's Playing' link on the lower right side of the tile.
 
-## Support
+## Thank you
 
-For any support for using this project feel free to email me at [johnturner4004@gmail.com](mailto:johnturner4004@gmail.com)
+I greatly appreciate your interest in my app. A deployed version of this app can be found at [Team zero Gaming app](https://team-zero-gaming.herokuapp.com/). For any support for using this project feel free to email me at [johnturner4004@gmail.com](mailto:johnturner4004@gmail.com)
