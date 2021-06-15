@@ -22,11 +22,30 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AddEvent from '../AddEvent/AddEvent';
 import Edit from '../Edit/Edit'
 import About from '../About/About'
+import { 
+  Typography,
+  Paper, 
+  makeStyles, 
+  Container 
+} from '@material-ui/core';
 
 import './App.css';
 
+const useStyles = makeStyles({
+  center: {
+    textAlign: "center",
+    width: 300,
+    margin: 10,
+  },
+  container: {
+    display: "flex",
+    justifyContent: "center",
+  },
+})
+
 function App() {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const theme = {
     spacing: 4,
@@ -72,9 +91,9 @@ function App() {
           {/* </Route> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
+            Visiting localhost:3000/add-event will show the AddEvent page if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+            Even though it seems like they are different pages, the user is always on localhost:3000/add-event */}
 
           <ProtectedRoute
             exact
@@ -84,7 +103,7 @@ function App() {
             </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // This path is for future use
             exact
             path="/profile"
           >
@@ -101,13 +120,6 @@ function App() {
           >
             <LoginPage />
           </ProtectedRoute>
-
-          <ProtectedRoute
-            exact
-            path="/profile"
-            >
-              <Profile />
-            </ProtectedRoute>
 
           <ProtectedRoute
             exact
@@ -130,7 +142,13 @@ function App() {
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
-            <h1>404</h1>
+            <Container className={classes.container}>
+              <Paper className={classes.center}>
+                <Typography variant="h1" >404</Typography>
+                <Typography variant="h5" component="h2">This is not the page we're looking for.</Typography>
+                <Typography>Try reloading or going back to the homepage. It's possible you got logged out. If so, please log back in again.</Typography>
+              </Paper>
+            </Container>
           </Route>
         </Switch>
         <Footer />
