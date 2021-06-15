@@ -63,13 +63,13 @@ export default function EditForm(props) {
   const gameList = useSelector((store) => store.game);
   const user = useSelector((store) => store.user);
 
+  // This useEffect function fills in the edit form with the current event details so
+  // the user can edit them
   useEffect(() => {
     setEdit();
   }, [gameList]);
   const setEdit = () => {
     setDescription(originalDetails.description);
-    // let originalGame = ({ game_id: originalDetails.game_id, game: originalDetails.game, image_url: originalDetails.image_url})
-    // setGame(originalGame)
     for (let thisGame of gameList) {
       if (thisGame.game_id === originalDetails.game_id) {
         setGame(thisGame);
@@ -99,19 +99,21 @@ export default function EditForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    //This reformats the date string to one that is easier to read
     const outputDate = moment(date).format('yyyy-MM-DD');
     const outputTime = moment(time).format('HH:mm');
-    
+    // This verifies that all required fields are filled in before submitting
     if (game !== '' && date !== '' && time !== '') {
       let outputDescription;
-
+      // This checks to see if there is an event description and fills it in with
+      // "Playing <game>" where <game> is the game selected from the list if none is
+      // entered
       if ((!description || description === undefined || description === '') && game) {
         outputDescription = `Playing ${game.game}`;
       } else {
         outputDescription = description;
       }
-
+      // This puts all the new values in an object to be send to the database
       const newDetails = {
         event_id: originalDetails.event_id,
         description: outputDescription,
@@ -120,14 +122,18 @@ export default function EditForm(props) {
         time: outputTime,
         created_by: user.id
       }
+      // This sends the object created above to the edit.saga.js to be added to the
+      // database
       dispatch({ type: 'EDIT', payload: newDetails})
       history.push('/my-events');
     }
   }
   return (
+    // Container for form elements to load in
     <Container className={classes.form}>
         <Paper className={classes.form}>
           <form noValidate autoComplete="off">
+            {/* Event description field */}
             <TextField
               className={classes.field}
               variant="outlined"
@@ -137,6 +143,7 @@ export default function EditForm(props) {
               fullWidth
               helperText="If left blank, default is playing <game>"
             />
+            {/* Dropdown for the game field */}
             <TextField
               className={classes.field}
               variant="outlined"
@@ -167,6 +174,7 @@ export default function EditForm(props) {
                   })
                 : ""}
             </TextField>
+            {/* This is the field for the date picker */}
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 className={classes.field}
@@ -183,6 +191,7 @@ export default function EditForm(props) {
                   "aria-label": "change date",
                 }}
                 />
+              {/* This is the field for the time picker */}
               <KeyboardTimePicker
                 className={classes.field}
                 inputVariant="outlined"
@@ -198,6 +207,7 @@ export default function EditForm(props) {
                 }}
                 />
             </MuiPickersUtilsProvider>
+            {/* Submit button to trigger the handle submit button */}
             <Button
               className={classes.btn}
               variant="contained"
