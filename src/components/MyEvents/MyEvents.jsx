@@ -36,6 +36,7 @@ export default function myEvents() {
     dispatch({ type: 'FETCH_MY_EVENTS', payload: user.id });
   }, [user]);
 
+  // Forwards user to the edit page and adds the event id to the path to be used by the edit page
   const handleEditButton = (id) => {
     history.push(`/edit/${id}`);
     dispatch({ type: 'CLEAR_EDIT' });
@@ -47,10 +48,12 @@ export default function myEvents() {
 
   return (
     <Container>
+      {/* Title */}
       <Typography variant="h3" component="h1" gutterBottom>
         My events
       </Typography>
       {myEvents
+        // Displays a users events after they have been received from the database
         ? myEvents.map((event) => {
             return (
               <>
@@ -82,8 +85,10 @@ export default function myEvents() {
                         </Typography>
                       </Container>
                     </Container>
+                    {/* Edit button */}
                     <Container className={classes.row}>
                       <Button color="primary" onClick={() => handleEditButton(event.event_id)}>Edit</Button>
+                      {/* Delete Button */}
                       <Button color="primary" onClick={() => handleDeleteButton(event.event_id)}>Delete</Button>
                     </Container>
                   </CardContent>
