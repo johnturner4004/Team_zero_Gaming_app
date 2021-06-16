@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 function LoginPage() {
   const history = useHistory();
 
+  // This component will eventually be removes once links are fixed as its use has depreciated
   return (
     <div>
       <LoginForm />
