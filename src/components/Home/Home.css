@@ -1,9 +1,17 @@
 #logo {
-  padding: 10vw;
+  padding: 2vw;
   animation: spin 10s linear infinite;
+  max-width: 400px;
+  width: 60vw;
 }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .welcome {
   text-align: center;
+}
+
+.home{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

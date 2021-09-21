@@ -124,7 +124,7 @@ function App() {
           <ProtectedRoute
             exact
             path="/registration"
-            authRedirect="/profile"
+            authRedirect="/home"
           >
             <RegisterPage />
           </ProtectedRoute>

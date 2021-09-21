@@ -4,6 +4,7 @@ import Drawer from '../Drawer/Drawer';
 import Button from '@material-ui/core/Button';
 import grey from '@material-ui/core/colors/grey'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
 
 import './Header.css'
 
@@ -18,6 +19,7 @@ const theme = createMuiTheme({
 function Header() {
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   // This gets the current location from the path and uses it to render the proper
   // link for the link in the right side of the header
@@ -46,7 +48,7 @@ function Header() {
     } else {
 
     // If none of the other conditions are met, the Profile link is rendered
-    return <Button color="secondary" onClick={() => history.push("/profile")}>Profile</Button>
+    return <Button color="secondary" onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Button>
   }
 }
 
